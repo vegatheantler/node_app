@@ -33,8 +33,8 @@ exports.create_an_employee = function(req, res) {
           if (err) throw err;
         });
     });
-    employee.photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
-    res.json({error: false, data: employee});
+    var photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
+    res.json({error: false, data: employee,photo});
   })
   .catch(function (err) {
     res.status(500).json({error: true, data: {message: err.message}});
@@ -46,8 +46,9 @@ exports.view_an_employee = function(req, res) {
     .query({where: {id: req.params.employeeId}})
     .fetch()
     .then(function(employee) {
-      employee.photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
-      res.json(employee);
+      var photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
+
+      res.json({employee, photo});
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});
@@ -75,8 +76,8 @@ exports.update_an_employee = function(req, res) {
             });
         });
       }
-      employee.photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
-      res.json({error: false, data: {message: 'Employee details updated', employee}});
+      var photo = req.protocol+"://"+req.headers.host + "/employee_photos/" + employee.id + ".png";
+      res.json({error: false, data: {message: 'Employee details updated', employee, photo}});
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});
