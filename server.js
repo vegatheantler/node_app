@@ -12,6 +12,7 @@ var express 	= require('express'),
 // app.use(bodyParser.urlencoded({ extended: true }));+
 // app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(bodyParser.json());
+app.use(express.static('storage'));
 
 var routes = require('./api/routes/employeeRoutes');
 routes(app);
